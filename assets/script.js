@@ -38,17 +38,7 @@ function buildSlots() {
         row.appendChild(saveSlot);
 
         container.appendChild(row);
-        // timeSlotArray.push({
-        //     row: row,
-        //     hour: hourSlot,
-        //     desc: descriptionSlot,
-        //     save: saveSlot,
-        //     image: image,
-        //     time: i
-        // });
-        
     }
-    //console.log("Here is the timeslot array", timeSlotArray);
     setDescFromStorage();
 }
 
@@ -71,10 +61,6 @@ function checkDescriptionArr() {
     for (var i = 0; i < descriptionArr.length; i++) {
         console.log(descriptionArr[i].value);
     }
-}
-
-function toHours(milliseconds) {
-    return milliseconds / (1000 * 60 * 60);
 }
 
 function setUrgency(description) {
@@ -100,8 +86,6 @@ buildSlots();
  */
 $(".container").on("click", ".saveBtn", function(event) {
     var descriptionContent = $(this).siblings()[1].value;
-    // console.log("Contained in adjacent textarea: " + descriptionContent);
-    // console.log($(this).attr("id"));
     localStorage.setItem($(this).attr("id"), descriptionContent);
 });
 
