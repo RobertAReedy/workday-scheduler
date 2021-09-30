@@ -1,8 +1,10 @@
-var timeSlotArray = [];
 var descriptionArr = [];
 var container = document.querySelector(".container");
 var testCurrentHour = moment();
 
+/**
+ * Builds the rows and columns housing the content for each work hour
+ */
 function buildSlots() {
     $("#currentDay").text(moment().format("dddd[,] MMMM Do"));
     for (var i = 9; i <= 17; i++) {
@@ -38,17 +40,7 @@ function buildSlots() {
         row.appendChild(saveSlot);
 
         container.appendChild(row);
-        // timeSlotArray.push({
-        //     row: row,
-        //     hour: hourSlot,
-        //     desc: descriptionSlot,
-        //     save: saveSlot,
-        //     image: image,
-        //     time: i
-        // });
-        
     }
-    //console.log("Here is the timeslot array", timeSlotArray);
     setDescFromStorage();
 }
 
@@ -73,13 +65,13 @@ function checkDescriptionArr() {
     }
 }
 
-function toHours(milliseconds) {
-    return milliseconds / (1000 * 60 * 60);
-}
-
+/**
+ * Colors each textarea (which is passed as an argument to 'description')
+ * according to whether its in the past, due in less than an hour, or due later than that
+ */
 function setUrgency(description) {
     var date = new Date;
-    console.log("current hour: " + date.getHours());
+    
     if ($(description).attr("data-time") <= date.getHours()) {
         description.classList = "col-10 description past";
     }
@@ -88,20 +80,16 @@ function setUrgency(description) {
     }
     else {
         description.classList = "col-10 description present";
-    }
-    
+    }   
 }
 
 buildSlots();
 
-
 /**
- * This is going to save the text in the corresponding textarea in localstorage
+ * Saves the text in the textarea corresponding to the button clicked in localstorage
  */
 $(".container").on("click", ".saveBtn", function(event) {
     var descriptionContent = $(this).siblings()[1].value;
-    // console.log("Contained in adjacent textarea: " + descriptionContent);
-    // console.log($(this).attr("id"));
     localStorage.setItem($(this).attr("id"), descriptionContent);
 });
 
